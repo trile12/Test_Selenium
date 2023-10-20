@@ -13,5 +13,15 @@ namespace TestToolLogin
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double windowWidth = mainWindow.Width;
+            double left = screenWidth - windowWidth;
+            mainWindow.Left = left;
+            mainWindow.Show();
+        }
     }
 }
