@@ -17,21 +17,33 @@ namespace TestToolLogin
 
         public static List<User> ReadUserCSV()
         {
-
-            using (var reader = new StreamReader(csvFilePath))
-            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            try
             {
-                var users = csv.GetRecords<User>().ToList();
-                return users;
-            };
+                using (var reader = new StreamReader(csvFilePath))
+                using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    var users = csv.GetRecords<User>().ToList();
+                    return users;
+                };
+            }
+            catch
+            {
+                return new List<User>();
+            }
         }
 
         public static void WriteUserCSV(List<User> listUsers)
         {
-            using (var writer = new StreamWriter(csvFilePath))
-            using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+            try
             {
-                csv.WriteRecords(listUsers);
+                using (var writer = new StreamWriter(csvFilePath))
+                using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                {
+                    csv.WriteRecords(listUsers);
+                }
+            }
+            catch
+            {
             }
         }
     }
