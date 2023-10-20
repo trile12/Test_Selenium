@@ -72,6 +72,7 @@
                         Margin="0,20,0,0"
                         materialDesign:HintAssist.Hint="Mật khẩu"
                         FontWeight="Bold"
+                        Password="taolatao"
                         Style="{StaticResource MaterialDesignFilledPasswordBox}" />
                     <Button
                         Grid.Row="2"
@@ -104,15 +105,55 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <DataGrid
-                x:Name="dataGrid"
-                Margin="15,10"
-                AutoGenerateColumns="True"
-                BorderThickness="5" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Margin="15,5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Click="Save_CSV_Click"
+                    Content="Lưu CSV"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}" />
+                <Button
+                    Grid.Column="1"
+                    Margin="15,5"
+                    HorizontalAlignment="Left"
+                    Click="Load_CSV_Click"
+                    Content="Tải CSV"
+                    Style="{StaticResource MaterialDesignRaisedLightButton}" />
+            </Grid>
             <Grid Grid.Row="1">
+                <DataGrid
+                    x:Name="dataGrid"
+                    Grid.Row="1"
+                    Margin="15,10"
+                    AutoGenerateColumns="True"
+                    BorderThickness="5"
+                    CanUserAddRows="True" />
+                <!--<Button
+                Width="40"
+                Height="40"
+                Margin="0,0,30,20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Add_Button"
+                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                ToolTip="Add user">
+                <materialDesign:PackIcon
+                Width="20"
+                Height="20"
+                Kind="PlusBold" />
+                </Button>-->
+            </Grid>
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
@@ -138,10 +179,20 @@
                     Foreground="{DynamicResource MaterialDesignDarkForeground}" />
             </Grid>
         </Grid>
-        <Border
-            x:Name="LockBorder"
-            Grid.Column="1"
-            Background="Gray"
-            Opacity="0.2" />
+        <Grid x:Name="LockBorder" Grid.Column="1">
+            <Border Background="Gray" Opacity="0.2" />
+            <ProgressBar
+                x:Name="Indicator"
+                IsIndeterminate="True"
+                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                Visibility="Collapsed"
+                Value="0" />
+
+        </Grid>
+        <ProgressBar
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Top"
+            IsIndeterminate="True"
+            Visibility="{Binding ElementName=Indicator, Path=Visibility}" />
     </Grid>
 </Window>
